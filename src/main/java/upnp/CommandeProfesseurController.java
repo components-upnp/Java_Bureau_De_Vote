@@ -30,7 +30,6 @@ public class CommandeProfesseurController {
     @UpnpStateVariable
     private String clef = "1234";
 
-    @UpnpStateVariable(defaultValue = "null")
     private UDN udnMaster = null;
 
     @UpnpAction(name = "Appairage")
