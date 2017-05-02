@@ -1,5 +1,6 @@
 package upnp;
 
+import com.irit.display.Fenetre;
 import org.fourthline.cling.UpnpService;
 import org.fourthline.cling.UpnpServiceImpl;
 import org.fourthline.cling.binding.LocalServiceBindingException;
@@ -74,7 +75,7 @@ public class BureauDeVoteServer implements Runnable {
                 new DefaultServiceManager(commandeProfesseurService,CommandeProfesseurController.class)
         );
 
-        //new Fenetre(ordreService,luminositeService).setVisible(true);
+        new Fenetre(voteService,commandeProfesseurService).setVisible(true);
 
         return new LocalDevice(
                 identity, type, details,

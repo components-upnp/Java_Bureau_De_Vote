@@ -30,7 +30,6 @@ public class VoteController {
     @UpnpStateVariable(defaultValue = "false")
     private boolean state = false;
 
-    @UpnpStateVariable
     private ArrayList<UDN> listeUdnEleves = new ArrayList<UDN>();
 
     @UpnpAction
@@ -62,5 +61,9 @@ public class VoteController {
             m.put("Commande", c);
             getPropertyChangeSupport().firePropertyChange("commande", null, m);
         }
+    }
+    
+    public void notifier(String question) {
+        getPropertyChangeSupport().firePropertyChange("Question", null, question);
     }
 }
