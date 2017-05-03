@@ -1,6 +1,6 @@
 package com.irit.main;
 
-import upnp.BureauDeVoteServer;
+import com.irit.upnp.BureauDeVoteServer;
 
 /**
  * Hello world!

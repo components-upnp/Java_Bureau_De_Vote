@@ -1,7 +1,6 @@
-package upnp;
+package com.irit.upnp;
 
 import org.fourthline.cling.binding.annotations.*;
-import org.fourthline.cling.model.types.UDN;
 
 import java.beans.PropertyChangeSupport;
 
@@ -30,10 +29,14 @@ public class CommandeProfesseurController {
     @UpnpStateVariable
     private String clef = "1234";
 
-    private UDN udnMaster = null;
+    @UpnpStateVariable
+    private String typeCommande;
+
+    @UpnpStateVariable
+    private String udnMaster;
 
     @UpnpAction(name = "Appairage")
-    public void appairage(@UpnpInputArgument(name = "Clef")String inClef, @UpnpInputArgument(name = "UdnMaster") UDN udn ) {
+    public void appairage(@UpnpInputArgument(name = "Clef")String inClef, @UpnpInputArgument(name = "UdnMaster") String udn ) {
         if ((inClef == clef) && !isAppaire) {
             isAppaire = true;
             udnMaster = udn;
@@ -42,7 +45,8 @@ public class CommandeProfesseurController {
     }
 
     @UpnpAction(name = "Commande")
-    public void commande(@UpnpInputArgument(name = "TypeCommande") String c, @UpnpInputArgument(name = "UdnMaster") UDN udn) {
+    public void commande(@UpnpInputArgument(name = "TypeCommande") String c, @UpnpInputArgument(name = "UdnMaster") String udn) {
+        typeCommande = c;
         if (isAppaire && (udn == udnMaster))
             getPropertyChangeSupport().firePropertyChange("commande", null, c);
     }

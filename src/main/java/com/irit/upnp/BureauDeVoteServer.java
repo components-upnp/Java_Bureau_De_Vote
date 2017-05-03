@@ -1,4 +1,4 @@
-package upnp;
+package com.irit.upnp;
 
 import com.irit.display.Fenetre;
 import org.fourthline.cling.UpnpService;
@@ -74,12 +74,17 @@ public class BureauDeVoteServer implements Runnable {
         commandeProfesseurService.setManager(
                 new DefaultServiceManager(commandeProfesseurService,CommandeProfesseurController.class)
         );
+        LocalService<RapportController> rapportService =
+                new AnnotationLocalServiceBinder().read(RapportController.class);
+        rapportService.setManager(
+                new DefaultServiceManager<RapportController>(rapportService, RapportController.class)
+        );
 
-        new Fenetre(voteService,commandeProfesseurService).setVisible(true);
+        new Fenetre(voteService,commandeProfesseurService,rapportService).setVisible(true);
 
         return new LocalDevice(
                 identity, type, details,
-                new LocalService[] {voteService,commandeProfesseurService}
+                new LocalService[] {voteService,commandeProfesseurService,rapportService}
         );
     }
 }

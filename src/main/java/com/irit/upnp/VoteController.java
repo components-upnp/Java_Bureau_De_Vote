@@ -1,7 +1,6 @@
-package upnp;
+package com.irit.upnp;
 
 import org.fourthline.cling.binding.annotations.*;
-import org.fourthline.cling.model.types.UDN;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -30,7 +29,16 @@ public class VoteController {
     @UpnpStateVariable(defaultValue = "false")
     private boolean state = false;
 
-    private ArrayList<UDN> listeUdnEleves = new ArrayList<UDN>();
+    @UpnpStateVariable(defaultValue = "")
+    private String commande = "";
+
+    @UpnpStateVariable(defaultValue = "")
+    private String udn = "";
+
+    @UpnpStateVariable
+    private String question = "";
+
+    private ArrayList<String> listeUdnEleves = new ArrayList<String>();
 
     @UpnpAction
     public void setState() {
@@ -46,7 +54,7 @@ public class VoteController {
     }
 
     @UpnpAction(name = "Inscription")
-    public void inscritpion(@UpnpInputArgument(name = "UdnDevice")UDN udn) {
+    public void inscritpion(@UpnpInputArgument(name = "Udn")String udn) {
         if (!listeUdnEleves.contains(udn) && !state) {
             listeUdnEleves.add(udn);
             getPropertyChangeSupport().firePropertyChange("inscription", null, udn);
@@ -54,16 +62,14 @@ public class VoteController {
     }
 
     @UpnpAction(name = "Commande")
-    public void commande(@UpnpInputArgument(name = "Commande") String c, @UpnpInputArgument(name = "Udn") UDN udn) {
+    public void commande(@UpnpInputArgument(name = "Commande") String c, @UpnpInputArgument(name = "Udn") String udn) {
         if (state && listeUdnEleves.contains(udn)) {
-            Map m = new HashMap();
-            m.put("UDN", udn);
-            m.put("Commande", c);
-            getPropertyChangeSupport().firePropertyChange("commande", null, m);
+            getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(c));
         }
     }
-    
-    public void notifier(String question) {
+
+    public void notifier(String q) {
+        question = q;
         getPropertyChangeSupport().firePropertyChange("Question", null, question);
     }
 }
