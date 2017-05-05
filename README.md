@@ -30,7 +30,7 @@ Ce composant présente les services suivant:
 
 Voici le schéma représentant le composant:
 
-![alt tag](https://github.com/components-upnp/Java_Bureau_De_Vote/blob/master/BureauDeVote.png)
+![alt tag](https://github.com/components-upnp/Java_Bureau_De_Vote/blob/master/BureauDeVoteSch%C3%A9ma.png)
 
 
 
