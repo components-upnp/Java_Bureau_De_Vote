@@ -41,6 +41,7 @@ public class LecteurXml {
                 if (isCommande) {
                     isCommande = false;
                     commande = new String(ch, start, length);
+                    System.err.println(commande);
                 }
                 if (isUdn) {
                     isUdn = false;

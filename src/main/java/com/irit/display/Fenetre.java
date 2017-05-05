@@ -167,9 +167,9 @@ public class Fenetre extends javax.swing.JFrame {
                 activate(terminerbutton);
                 deactivate(soumettreButton);
 
-                String nb = JOptionPane.showInputDialog("Entrer le nombre de question:");
+                String nb = JOptionPane.showInputDialog("Entrer le nombre de reponses possible:");
 
-                stockReponses = new StockReponses(3);
+                stockReponses = new StockReponses(Integer.valueOf(nb));
                 voteService.getManager().getImplementation().notifier(jTextPane1.getText());
                 voteService.getManager().getImplementation().setState();
                 state = State.SOUMISE;

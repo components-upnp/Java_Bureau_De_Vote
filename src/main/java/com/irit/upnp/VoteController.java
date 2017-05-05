@@ -8,8 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Created by mkostiuk on 02/05/2017.
@@ -59,16 +58,19 @@ public class VoteController {
 
     @UpnpAction(name = "Inscription")
     public void inscritpion(@UpnpInputArgument(name = "Udn") String udn) {
+        udn = "uuid:"+udn;
         if (!listeUdnEleves.contains(udn) && !state) {
             listeUdnEleves.add(udn);
+            System.out.println("Nouvel UDN: " +udn);
             getPropertyChangeSupport().firePropertyChange("inscription", null, udn);
         }
     }
 
     @UpnpAction(name = "Commande")
-    public void commande(@UpnpInputArgument(name = "Commande") String commande) throws IOException, SAXException, ParserConfigurationException {
+    public void commande(@UpnpInputArgument(name = "Commande") String com) throws IOException, SAXException, ParserConfigurationException {
 
-        LecteurXml l = new LecteurXml("<?xml version=\"1.0\" encoding=\"UTF-8\"?><TelecommandeEleve><UDN>uuid:460edede-7fde-40f2-8012-58245008f038</UDN><Commande>0</Commande></TelecommandeEleve>");
+        commande = com;
+        LecteurXml l = new LecteurXml(commande);
         String u = l.getUdn();
         String c = l.getCommande();
 
@@ -85,3 +87,5 @@ public class VoteController {
         getPropertyChangeSupport().firePropertyChange("Question", null, question);
     }
 }
+
+
