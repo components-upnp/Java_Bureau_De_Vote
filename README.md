@@ -1,4 +1,4 @@
-# Java_Bureau_De_Vote
+# Java_Polling_Station
 Bureau de vote basé sur le protocole UPnP
 
 <strong>Description: </strong>
