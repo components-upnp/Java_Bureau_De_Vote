@@ -22,9 +22,9 @@ de l'application:
 
 Ce composant présente les services suivant:
 
-  1) CommandeProfesseurController
-  2) VoteEleveController
-  3) RapportController
+  1) MasterCommandController
+  2) VoteController
+  3) ReportController
  
 VoteService qui offre l'accès aux méthodes:
 
