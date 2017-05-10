@@ -22,9 +22,9 @@ de l'application:
 
 Ce composant présente les services suivant:
 
-  1) MasterCommandController
-  2) VoteController
-  3) ReportController
+  1) MasterCommandService
+  2) VoteService
+  3) ReportService
  
 VoteService qui offre l'accès aux méthodes:
 
@@ -36,7 +36,11 @@ RapportService n'offre accès à aucune méthode, mais envoie un événement Rep
 
 Voici le schéma représentant le composant:
 
-![alt tag](https://github.com/components-upnp/Java_Bureau_De_Vote/blob/master/BureauDeVoteSch%C3%A9ma.png)
+![alt tag](https://github.com/components-upnp/Java_Polling_Station/blob/master/Polling_Station.png)
+
+<strong>Maintenance : </strong>
+
+C'est un projet Maven. Effectuer les modifications à faire, ajouter une configuration d'éxecution Maven avec la phase "package" pour exporter en .jar Executer cette commande.
 
 
 
