@@ -74,7 +74,7 @@ public class Fenetre extends javax.swing.JFrame {
                             case SOUMISE:
                                 if (stEvt == "commande") {
                                     System.out.println("Commande d'un élève reçue!!!");
-                                    stockReponses.addReponse((Integer)evt.getNewValue());
+                                    stockReponses.addReponse(((Integer)evt.getNewValue())-1);
                                 }
                                 break;
                         }

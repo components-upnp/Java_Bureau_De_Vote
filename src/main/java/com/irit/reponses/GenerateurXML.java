@@ -2,7 +2,6 @@ package com.irit.reponses;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Text;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,7 +15,7 @@ public class GenerateurXML {
 
     public Document getDocXml(HashMap<Integer,Integer> reponses, Integer nb) throws ParserConfigurationException {
 
-        String namespace = "BureauDeVote/";
+        String namespace = "";
         Document doc;
         DocumentBuilderFactory db = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
