@@ -197,8 +197,6 @@ public class Fenetre extends javax.swing.JFrame {
                 Document res = new GenerateurXML().getDocXml(stockReponses.getReponses(),
                         stockReponses.getNbQuestions());
 
-                File f = new File("doc.xml");
-                String s = "";
 
                 DOMSource source = new DOMSource(res);
                 StringWriter writer = new StringWriter();
