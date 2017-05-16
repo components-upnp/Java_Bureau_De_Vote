@@ -46,21 +46,21 @@ public class BureauDeVoteServer implements Runnable {
 
         DeviceIdentity identity =
                 new DeviceIdentity(
-                        UDN.uniqueSystemIdentifier("Bureau de vote")
+                        UDN.uniqueSystemIdentifier("Polling Station")
                 );
 
         DeviceType type =
-                new UDADeviceType("Bureau", 1);
+                new UDADeviceType("Vote", 1);
 
         DeviceDetails details =
                 new DeviceDetails(
-                        "Bureau de vote (test)",					// Friendly Name
+                        "Polling Station",					// Friendly Name
                         new ManufacturerDetails(
                                 "UPS-IRIT",								// Manufacturer
                                 ""),								// Manufacturer URL
                         new ModelDetails(
-                                "Ampoule",						// Model Name
-                                "simulation d'une Ampoule",	// Model Description
+                                "PollingStation",						// Model Name
+                                "Bureau de vote logiciel, permet de soumettre une question aux utilisateurs",	// Model Description
                                 "v1" 								// Model Number
                         )
                 );
@@ -79,12 +79,17 @@ public class BureauDeVoteServer implements Runnable {
         rapportService.setManager(
                 new DefaultServiceManager<RapportController>(rapportService, RapportController.class)
         );
+        LocalService<QuestionService> questionService =
+                new AnnotationLocalServiceBinder().read(QuestionService.class);
+        questionService.setManager(
+                new DefaultServiceManager<QuestionService>(questionService,QuestionService.class)
+        );
 
-        new Fenetre(voteService,commandeProfesseurService,rapportService).setVisible(true);
+        new Fenetre(voteService,commandeProfesseurService,rapportService,questionService).setVisible(true);
 
         return new LocalDevice(
                 identity, type, details,
-                new LocalService[] {voteService,commandeProfesseurService,rapportService}
+                new LocalService[] {voteService,commandeProfesseurService,rapportService,questionService}
         );
     }
 }

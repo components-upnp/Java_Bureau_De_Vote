@@ -8,8 +8,8 @@ import java.beans.PropertyChangeSupport;
  * Created by mkostiuk on 02/05/2017.
  */
 @UpnpService(
-        serviceId = @UpnpServiceId("CommandeProfesseurController"),
-        serviceType = @UpnpServiceType(value = "CommandeProfesseurController")
+        serviceId = @UpnpServiceId("MasterCommandService"),
+        serviceType = @UpnpServiceType(value = "MasterCommandService")
 )
 public class CommandeProfesseurController {
 

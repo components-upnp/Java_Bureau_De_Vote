@@ -15,8 +15,8 @@ import java.util.ArrayList;
  */
 
 @UpnpService(
-        serviceType = @UpnpServiceType("VoteController"),
-        serviceId = @UpnpServiceId(value = "VoteController")
+        serviceType = @UpnpServiceType("VoteService"),
+        serviceId = @UpnpServiceId(value = "VoteService")
 )
 public class VoteController {
     private final PropertyChangeSupport propertyChangeSupport;
@@ -37,9 +37,6 @@ public class VoteController {
 
     @UpnpStateVariable(defaultValue = "")
     private String udn = "";
-
-    @UpnpStateVariable
-    private String question = "";
 
     private ArrayList<String> listeUdnEleves = new ArrayList<String>();
 
@@ -82,10 +79,7 @@ public class VoteController {
         }
     }
 
-    public void notifier(String q) {
-        question = q;
-        getPropertyChangeSupport().firePropertyChange("Question", null, question);
-    }
+
 }
 
 

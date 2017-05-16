@@ -34,6 +34,11 @@ public class StockReponses {
         return reponses;
     }
 
+    public int getVoteReponse(int num) {
+        num--;
+        return reponses.get(num);
+    }
+
     public int getNbQuestions() {
         return nbQuestions;
     }

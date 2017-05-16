@@ -26,7 +26,7 @@ public class TestStockReponses extends TestCase {
     @Test
     public void testAddReponseOk() {
         sr.addReponse(1);
-        assertEquals(1, sr.getReponses().get(1).intValue());
+        assertEquals(1, sr.getVoteReponse(1));
     }
 
     @Test

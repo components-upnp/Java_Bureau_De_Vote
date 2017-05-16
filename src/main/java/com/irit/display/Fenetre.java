@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.irit.reponses.GenerateurXML;
 import com.irit.reponses.StockReponses;
+import com.irit.upnp.QuestionService;
 import com.irit.upnp.RapportController;
 import org.fourthline.cling.model.meta.LocalService;
 import com.irit.upnp.CommandeProfesseurController;
@@ -37,6 +38,7 @@ public class Fenetre extends javax.swing.JFrame {
     private LocalService<VoteController> voteService;
     private LocalService<CommandeProfesseurController> commandeProfesseurService;
     private LocalService<RapportController> rapportService;
+    private LocalService<QuestionService> questionService;
     private State state;
 
     private StockReponses stockReponses;
@@ -51,10 +53,14 @@ public class Fenetre extends javax.swing.JFrame {
             b.setEnabled(false);
     }
     
-    public void init(LocalService<VoteController> vc, LocalService<CommandeProfesseurController> cpc, LocalService<RapportController> rc) {
+    public void init(LocalService<VoteController> vc,
+                     LocalService<CommandeProfesseurController> cpc,
+                     LocalService<RapportController> rc,
+                     LocalService<QuestionService> qs) {
         voteService = vc;
         commandeProfesseurService = cpc;
         rapportService = rc;
+        questionService = qs;
         state = State.INIT;
         activate(soumettreButton);
         deactivate(terminerbutton);
@@ -85,9 +91,12 @@ public class Fenetre extends javax.swing.JFrame {
     /**
      * Creates new form Fenetre
      */
-    public Fenetre(LocalService<VoteController> vc, LocalService<CommandeProfesseurController> cpc, LocalService<RapportController> rc) {
+    public Fenetre(LocalService<VoteController> vc,
+                   LocalService<CommandeProfesseurController> cpc,
+                   LocalService<RapportController> rc,
+                   LocalService<QuestionService> qs) {
         initComponents();
-        init(vc,cpc, rc);
+        init(vc,cpc, rc, qs);
     }
 
   
@@ -170,7 +179,7 @@ public class Fenetre extends javax.swing.JFrame {
                 String nb = JOptionPane.showInputDialog("Entrer le nombre de reponses possible:");
 
                 stockReponses = new StockReponses(Integer.valueOf(nb));
-                voteService.getManager().getImplementation().notifier(jTextPane1.getText());
+                questionService.getManager().getImplementation().notifier(jTextPane1.getText());
                 voteService.getManager().getImplementation().setState();
                 state = State.SOUMISE;
                 break;
