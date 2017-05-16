@@ -36,7 +36,7 @@ RapportService n'offre accès à aucune méthode, mais envoie un événement Rep
 
 Voici le schéma représentant le composant:
 
-![alt tag](https://github.com/components-upnp/Java_Polling_Station/blob/master/Polling_Station.png)
+![alt tag](https://github.com/components-upnp/Java_Polling_Station/blob/master/PollingStation.png)
 
 <strong>Maintenance : </strong>
 
