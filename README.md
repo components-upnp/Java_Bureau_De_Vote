@@ -16,7 +16,9 @@ faisant participer les élèves par le biais de QCM.
 Pour lancer l'application il suffit de lancer le .jar se situant dans le répertoire build. Voici un exemple d'exécution 
 de l'application:
 
-![alt tag]()
+![alt tag](https://github.com/components-upnp/Java_Polling_Station/blob/master/PollingStationIHM.PNG)
+
+L'interface du bureau de vote est composée d'un TextPane dans lequel le professeur peut écrire la question qu'il souhaite soumettre et les réponses possibles et de deux boutons, l'un pour commencer le questionnaire et l'autre pour l'arrêter. Lorsque le professeur soumet la question, une petite fenêtre apparaît dans laquelle il doit préciser le nombre de réponses possibles.
 
 <strong>Spécicfications UPnP:</strong>
 
