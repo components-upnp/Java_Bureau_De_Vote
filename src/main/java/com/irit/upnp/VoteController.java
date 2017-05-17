@@ -1,6 +1,6 @@
 package com.irit.upnp;
 
-import com.irit.reponses.LecteurXml;
+import com.irit.reponses.LecteurXmlVote;
 import org.fourthline.cling.binding.annotations.*;
 import org.xml.sax.SAXException;
 
@@ -71,7 +71,7 @@ public class VoteController {
     public String commande(@UpnpInputArgument(name = "Commande") String com) throws IOException, SAXException, ParserConfigurationException {
 
         String c = com;
-        LecteurXml l = new LecteurXml(c);
+        LecteurXmlVote l = new LecteurXmlVote(c);
         String u = l.getUdn();
         commande = l.getCommande();
 

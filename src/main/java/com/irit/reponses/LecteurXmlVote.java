@@ -14,12 +14,13 @@ import java.io.StringReader;
 /**
  * Created by mkostiuk on 04/05/2017.
  */
-public class LecteurXml {
+public class LecteurXmlVote {
 
     private String udn;
+    private String clef;
     private String commande;
 
-    public LecteurXml(String xml) throws ParserConfigurationException, SAXException, IOException {
+    public LecteurXmlVote(String xml) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory spf = SAXParserFactory.newInstance();
         SAXParser sp = spf.newSAXParser();
 
@@ -27,6 +28,7 @@ public class LecteurXml {
 
             boolean isUdn = false;
             boolean isCommande = false;
+            boolean isClef = false;
 
             @Override
             public void startElement(String uri, String localName, String qName, Attributes attributes) {
@@ -34,6 +36,8 @@ public class LecteurXml {
                     isUdn = true;
                 if (qName.equalsIgnoreCase("Commande"))
                     isCommande = true;
+                if (qName.equalsIgnoreCase("Key"))
+                    isClef = true;
             }
 
             @Override
@@ -47,6 +51,10 @@ public class LecteurXml {
                     isUdn = false;
                     udn = new String(ch, start, length);
                 }
+                if (isClef) {
+                    isClef = false;
+                    clef = new String(ch,start, length);
+                }
             }
         };
         sp.parse(new InputSource(new StringReader(xml)), handler);
@@ -59,4 +67,6 @@ public class LecteurXml {
     public String getCommande() {
         return commande;
     }
+
+    public String getClef() {return clef;}
 }

@@ -65,7 +65,7 @@ public class TestVoteController extends TestCase {
 
     @Test
     public void testSetStateTrue() {
-        pause(2000);
+        pause(4000);
         sub.executeAction("SetState",
                 null,
                 null);

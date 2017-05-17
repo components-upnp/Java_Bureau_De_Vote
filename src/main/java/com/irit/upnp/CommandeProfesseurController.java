@@ -1,8 +1,12 @@
 package com.irit.upnp;
 
+import com.irit.reponses.LecteurXmlVote;
 import org.fourthline.cling.binding.annotations.*;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
 
 /**
  * Created by mkostiuk on 02/05/2017.
@@ -23,31 +27,26 @@ public class CommandeProfesseurController {
         return propertyChangeSupport;
     }
 
-    @UpnpStateVariable(defaultValue = "false")
-    private boolean isAppaire = false;
+
 
     @UpnpStateVariable
     private String clef = "1234";
 
-    @UpnpStateVariable
-    private String typeCommande;
+    @UpnpStateVariable(sendEvents = false)
+    String commande = "";
 
-    @UpnpStateVariable
-    private String udnMaster;
 
-    @UpnpAction(name = "Appairage")
-    public void appairage(@UpnpInputArgument(name = "Clef")String inClef, @UpnpInputArgument(name = "UdnMaster") String udn ) {
-        if ((inClef == clef) && !isAppaire) {
-            isAppaire = true;
-            udnMaster = udn;
-            getPropertyChangeSupport().firePropertyChange("appairage", false, true);
+    @UpnpAction(name = "SetCommande", out = @UpnpOutputArgument(name = "Commande"))
+    public String commande(@UpnpInputArgument(name = "Commande") String c) throws IOException, SAXException, ParserConfigurationException {
+        LecteurXmlVote l = new LecteurXmlVote(c);
+        commande = l.getCommande();
+        if (clef == l.getClef()) {
+            getPropertyChangeSupport().firePropertyChange("commande", null, commande);
         }
+        return null;
     }
 
-    @UpnpAction(name = "Commande")
-    public void commande(@UpnpInputArgument(name = "TypeCommande") String c, @UpnpInputArgument(name = "UdnMaster") String udn) {
-        typeCommande = c;
-        if (isAppaire && (udn == udnMaster))
-            getPropertyChangeSupport().firePropertyChange("commande", null, c);
+    public String getClef() {
+        return clef;
     }
 }
