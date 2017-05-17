@@ -53,14 +53,18 @@ public class VoteController {
         return state;
     }
 
-    @UpnpAction(name = "Inscription")
-    public void inscritpion(@UpnpInputArgument(name = "Udn") String udn) {
+    @UpnpAction(name = "Inscription", out = @UpnpOutputArgument(name = "Udn"))
+    public String inscritpion(@UpnpInputArgument(name = "Udn") String udn) {
         udn = "uuid:"+udn;
         if (!listeUdnEleves.contains(udn) && !state) {
             listeUdnEleves.add(udn);
             System.out.println("Nouvel UDN: " +udn);
             getPropertyChangeSupport().firePropertyChange("inscription", null, udn);
+            return udn;
         }
+        else
+            return null;
+
     }
 
     @UpnpAction(name = "Commande")
@@ -78,7 +82,6 @@ public class VoteController {
             getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(c));
         }
     }
-
 
 }
 

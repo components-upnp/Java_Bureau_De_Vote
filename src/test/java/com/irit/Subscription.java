@@ -34,7 +34,7 @@ import java.util.Map;
 /*Afin de lancer cette suite de tests, il faut avoir préalablement lancé l'application sur le terminal Android
 * Le terminal et la machine exécutant les tests doivent être sur le même réseau
 * */
-public class Susbcription {
+public class Subscription {
 
     private String serviceName;
     private String status = new String("lol");
@@ -43,7 +43,7 @@ public class Susbcription {
     private boolean deviceConnecte =  false;
 
 
-    public Susbcription(String name) {
+    public Subscription(String name) {
         this.serviceName = name;
     }
 
@@ -106,17 +106,28 @@ public class Susbcription {
                             deviceConnecte = false;
                         }
 
+                        /** Gère les événements dont le nom du status est:
+                         *      - inscription
+                         *      - commande
+                         *      - Reponses
+                         *      - Question
+                         * */
                         @Override
                         public synchronized void eventReceived(GENASubscription sub) {
 
-                           /* System.out.println("Event: " + sub.getCurrentSequence().getValue());
+                            System.out.println("Event: " + sub.getCurrentSequence().getValue());
 
                             Map<String, StateVariableValue> values = sub.getCurrentValues();
-                            status = values.get("Status").toString();
+
+                            System.err.println(sub.getCurrentValues().keySet());
+                            if (values.containsKey("UdnEvent"))
+                                status = values.get("UdnEvent").toString();
+                            if (values.containsKey("commande"))
+                                status = values.get("commande").toString();
 
 
 
-                            System.out.println("Status is: " + status.toString());*/
+                            System.out.println("Status is: " + status.toString());
 
                         }
 
