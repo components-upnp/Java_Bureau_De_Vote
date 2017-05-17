@@ -48,7 +48,7 @@ public class VoteController {
         getPropertyChangeSupport().firePropertyChange("state", oldStateValue, state);
     }
 
-    @UpnpAction
+    @UpnpAction(out = @UpnpOutputArgument(name = "State"))
     public boolean getState() {
         return state;
     }
@@ -67,20 +67,22 @@ public class VoteController {
 
     }
 
-    @UpnpAction(name = "Commande")
-    public void commande(@UpnpInputArgument(name = "Commande") String com) throws IOException, SAXException, ParserConfigurationException {
+    @UpnpAction(name = "SetCommande", out = @UpnpOutputArgument(name = "Commande"))
+    public String commande(@UpnpInputArgument(name = "Commande") String com) throws IOException, SAXException, ParserConfigurationException {
 
-        commande = com;
-        LecteurXml l = new LecteurXml(commande);
+        String c = com;
+        LecteurXml l = new LecteurXml(c);
         String u = l.getUdn();
-        String c = l.getCommande();
+        commande = l.getCommande();
 
         System.out.println(u);
-        System.out.println(c);
+        System.out.println(commande);
 
         if (state && listeUdnEleves.contains(u)) {
-            getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(c));
+            getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(commande));
+            return commande ;
         }
+        return null;
     }
 
 }

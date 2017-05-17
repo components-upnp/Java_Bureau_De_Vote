@@ -63,6 +63,69 @@ public class TestVoteController extends TestCase {
         assertEquals("", r.toString());
     }
 
+    @Test
+    public void testSetStateTrue() {
+        pause(2000);
+        sub.executeAction("SetState",
+                null,
+                null);
+        pause(2000);
+        ArrayList<Object> res = sub.executeAction("GetState",
+                null,
+                null);
+        pause(2000);
+        ActionArgumentValue r = (ActionArgumentValue) res.get(0);
+        assertEquals("1",r.toString());
+    }
+
+    @Test
+    public void testStateFasleInit() {
+        ArrayList<Object> res = sub.executeAction("GetState",
+                null,
+                null);
+        pause(2000);
+        ActionArgumentValue r = (ActionArgumentValue) res.get(0);
+        assertEquals("0",r.toString());
+    }
+
+    @Test
+    public void testCommandeOk() {
+        pause(2000);
+        sub.executeAction("Inscription",
+                "Udn",
+                "TEST");
+        pause(2000);
+        sub.executeAction("SetState",
+                null,
+                null);
+
+        pause(2000);
+        ArrayList<Object> res = sub.executeAction("SetCommande",
+                "Commande",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TelecommandeEleve xmlns=\"/\"><UDN>uuid:TEST</UDN><Commande>1</Commande></TelecommandeEleve>");
+        pause(2000);
+        ActionArgumentValue r = (ActionArgumentValue) res.get(0);
+        assertEquals("1",r.toString());
+    }
+
+    @Test
+    public void testCommandeStateFalse() {
+        ArrayList<Object> res = sub.executeAction("GetState",
+                null,
+                null);
+        pause(2000);
+        ActionArgumentValue r = (ActionArgumentValue) res.get(0);
+        assertEquals("0",r.toString());
+
+        pause(2000);
+        res = sub.executeAction("SetCommande",
+                "Commande",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TelecommandeEleve xmlns=\"/\"><UDN>uuid:TEST</UDN><Commande>1</Commande></TelecommandeEleve>");
+        pause(2000);
+        r = (ActionArgumentValue) res.get(0);
+        assertEquals("",r.toString());
+    }
+
 
 
 
