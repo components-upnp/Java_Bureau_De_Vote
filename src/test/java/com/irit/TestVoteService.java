@@ -1,6 +1,6 @@
 package com.irit;
 
-import com.irit.upnp.BureauDeVoteServer;
+import com.irit.upnp.PollingStationServer;
 import junit.framework.TestCase;
 import org.fourthline.cling.model.action.ActionArgumentValue;
 import org.junit.After;
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 /**
  * Created by mkostiuk on 12/05/2017.
  */
-public class TestVoteController extends TestCase {
+public class TestVoteService extends TestCase {
 
     Subscription sub;
     Thread app;
 
     @Before
     public void setUp() {
-        app = new Thread(new BureauDeVoteServer());
+        app = new Thread(new PollingStationServer());
         app.run();
         pause(2000);
         sub = new Subscription("VoteService");

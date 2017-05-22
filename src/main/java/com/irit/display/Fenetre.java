@@ -18,11 +18,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.irit.reponses.GenerateurXML;
 import com.irit.reponses.StockReponses;
-import com.irit.upnp.QuestionService;
-import com.irit.upnp.RapportController;
+import com.irit.upnp.*;
 import org.fourthline.cling.model.meta.LocalService;
-import com.irit.upnp.CommandeProfesseurController;
-import com.irit.upnp.VoteController;
 import org.w3c.dom.Document;
 
 /**
@@ -35,10 +32,10 @@ public class Fenetre extends javax.swing.JFrame {
         INIT, SOUMISE;
     }
     
-    private LocalService<VoteController> voteService;
-    private LocalService<CommandeProfesseurController> commandeProfesseurService;
-    private LocalService<RapportController> rapportService;
-    private LocalService<QuestionService> questionService;
+    private LocalService<VoteService> voteService;
+    private LocalService<MasterCommandService> commandeProfesseurService;
+    private LocalService<ReportService> rapportService;
+    private LocalService<SendQuestionService> questionService;
     private State state;
 
     private StockReponses stockReponses;
@@ -53,10 +50,10 @@ public class Fenetre extends javax.swing.JFrame {
             b.setEnabled(false);
     }
     
-    public void init(LocalService<VoteController> vc,
-                     LocalService<CommandeProfesseurController> cpc,
-                     LocalService<RapportController> rc,
-                     LocalService<QuestionService> qs) {
+    public void init(LocalService<VoteService> vc,
+                     LocalService<MasterCommandService> cpc,
+                     LocalService<ReportService> rc,
+                     LocalService<SendQuestionService> qs) {
         voteService = vc;
         commandeProfesseurService = cpc;
         rapportService = rc;
@@ -91,10 +88,10 @@ public class Fenetre extends javax.swing.JFrame {
     /**
      * Creates new form Fenetre
      */
-    public Fenetre(LocalService<VoteController> vc,
-                   LocalService<CommandeProfesseurController> cpc,
-                   LocalService<RapportController> rc,
-                   LocalService<QuestionService> qs) {
+    public Fenetre(LocalService<VoteService> vc,
+                   LocalService<MasterCommandService> cpc,
+                   LocalService<ReportService> rc,
+                   LocalService<SendQuestionService> qs) {
         initComponents();
         init(vc,cpc, rc, qs);
     }

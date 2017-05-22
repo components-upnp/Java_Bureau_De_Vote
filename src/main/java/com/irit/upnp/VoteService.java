@@ -1,6 +1,6 @@
 package com.irit.upnp;
 
-import com.irit.reponses.LecteurXmlVote;
+import com.irit.reponses.LecteurXml;
 import org.fourthline.cling.binding.annotations.*;
 import org.xml.sax.SAXException;
 
@@ -18,10 +18,10 @@ import java.util.ArrayList;
         serviceType = @UpnpServiceType("VoteService"),
         serviceId = @UpnpServiceId(value = "VoteService")
 )
-public class VoteController {
+public class VoteService {
     private final PropertyChangeSupport propertyChangeSupport;
 
-    public VoteController() {
+    public VoteService() {
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
@@ -53,25 +53,24 @@ public class VoteController {
         return state;
     }
 
-    @UpnpAction(name = "Inscription", out = @UpnpOutputArgument(name = "Udn"))
-    public String inscritpion(@UpnpInputArgument(name = "Udn") String udn) {
+    @UpnpAction(name = "Inscription")
+    public void inscritpion(@UpnpInputArgument(name = "Udn") String udn) {
         udn = "uuid:"+udn;
         if (!listeUdnEleves.contains(udn) && !state) {
             listeUdnEleves.add(udn);
             System.out.println("Nouvel UDN: " +udn);
             getPropertyChangeSupport().firePropertyChange("inscription", null, udn);
-            return udn;
+
         }
-        else
-            return null;
+
 
     }
 
-    @UpnpAction(name = "SetCommande", out = @UpnpOutputArgument(name = "Commande"))
-    public String commande(@UpnpInputArgument(name = "Commande") String com) throws IOException, SAXException, ParserConfigurationException {
+    @UpnpAction(name = "SetCommande")
+    public void commande(@UpnpInputArgument(name = "Commande") String com) throws IOException, SAXException, ParserConfigurationException {
 
         String c = com;
-        LecteurXmlVote l = new LecteurXmlVote(c);
+        LecteurXml l = new LecteurXml(c);
         String u = l.getUdn();
         commande = l.getCommande();
 
@@ -80,9 +79,9 @@ public class VoteController {
 
         if (state && listeUdnEleves.contains(u)) {
             getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(commande));
-            return commande ;
+
         }
-        return null;
+
     }
 
 }

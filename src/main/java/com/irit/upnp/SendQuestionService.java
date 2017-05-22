@@ -8,18 +8,17 @@ import org.fourthline.cling.binding.annotations.UpnpStateVariable;
 import java.beans.PropertyChangeSupport;
 
 /**
- * Created by mkostiuk on 02/05/2017.
+ * Created by mkostiuk on 16/05/2017.
  */
-
 @UpnpService(
-        serviceType = @UpnpServiceType("ReportService"),
-        serviceId = @UpnpServiceId(value = "ReportService")
+        serviceId = @UpnpServiceId(value = "SendQuestionService"),
+        serviceType = @UpnpServiceType("SendQuestionService")
 )
-public class RapportController {
+public class SendQuestionService {
 
-    private final PropertyChangeSupport propertyChangeSupport;
+    private PropertyChangeSupport propertyChangeSupport;
 
-    public RapportController() {
+    public SendQuestionService() {
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
@@ -28,10 +27,11 @@ public class RapportController {
     }
 
     @UpnpStateVariable
-    private String reponses = "";
+    private String question = "";
 
-    public void transmettreRapport(String r) {
-        reponses = r;
-        propertyChangeSupport.firePropertyChange("Reponses", null, reponses);
+    public void notifier(String q) {
+        question = q;
+        getPropertyChangeSupport().firePropertyChange("Question", null, question);
     }
+
 }

@@ -1,6 +1,6 @@
 package com.irit;
 
-import com.irit.upnp.BureauDeVoteServer;
+import com.irit.upnp.PollingStationServer;
 import junit.framework.TestCase;
 import org.fourthline.cling.model.action.ActionArgumentValue;
 import org.junit.After;
@@ -19,7 +19,7 @@ public class TestMasterControl extends TestCase {
 
     @Before
     public void setUp() {
-        app = new Thread(new BureauDeVoteServer());
+        app = new Thread(new PollingStationServer());
         app.run();
         pause(2000);
         sub = new Subscription("MasterCommandService");

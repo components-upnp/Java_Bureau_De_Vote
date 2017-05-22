@@ -14,13 +14,15 @@ import java.io.StringReader;
 /**
  * Created by mkostiuk on 04/05/2017.
  */
-public class LecteurXmlVote {
+public class LecteurXml {
 
     private String udn;
     private String clef;
     private String commande;
+    private String question;
+    private String nbQuestion;
 
-    public LecteurXmlVote(String xml) throws ParserConfigurationException, SAXException, IOException {
+    public LecteurXml(String xml) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory spf = SAXParserFactory.newInstance();
         SAXParser sp = spf.newSAXParser();
 
@@ -29,6 +31,8 @@ public class LecteurXmlVote {
             boolean isUdn = false;
             boolean isCommande = false;
             boolean isClef = false;
+            boolean isNbQuestion = false;
+            boolean isQuestion = false;
 
             @Override
             public void startElement(String uri, String localName, String qName, Attributes attributes) {
@@ -38,6 +42,10 @@ public class LecteurXmlVote {
                     isCommande = true;
                 if (qName.equalsIgnoreCase("Key"))
                     isClef = true;
+                if(qName.equalsIgnoreCase("NbQuestion"))
+                    isNbQuestion = true;
+                if (qName.equalsIgnoreCase("Question"))
+                    isQuestion = true;
             }
 
             @Override
@@ -55,6 +63,14 @@ public class LecteurXmlVote {
                     isClef = false;
                     clef = new String(ch,start, length);
                 }
+                if (isQuestion) {
+                    isQuestion = false;
+                    question = new String(ch, start, length);
+                }
+                if (isNbQuestion) {
+                    isNbQuestion = false;
+                    nbQuestion = new String(ch, start, length);
+                }
             }
         };
         sp.parse(new InputSource(new StringReader(xml)), handler);
@@ -69,4 +85,12 @@ public class LecteurXmlVote {
     }
 
     public String getClef() {return clef;}
+
+    public String getNbQuestion() {
+        return nbQuestion;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
 }
