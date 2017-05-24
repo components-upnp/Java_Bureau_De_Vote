@@ -54,18 +54,6 @@ public class VoteService {
         return state;
     }
 
-    @UpnpAction(name = "Inscription")
-    public void inscritpion(@UpnpInputArgument(name = "Udn") String udn) {
-        udn = "uuid:"+udn;
-        if (!listeUdnEleves.containsKey(udn) && !state) {
-            listeUdnEleves.put(udn, false);
-            System.out.println("Nouvel UDN: " +udn);
-            getPropertyChangeSupport().firePropertyChange("inscription", null, udn);
-
-        }
-
-
-    }
 
     @UpnpAction(name = "SetCommande")
     public void commande(@UpnpInputArgument(name = "Commande") String com) throws IOException, SAXException, ParserConfigurationException {
@@ -78,6 +66,17 @@ public class VoteService {
         System.out.println(u);
         System.out.println(commande);
 
+        if (commande.equals("DROITE"))
+            commande = "1";
+        if (commande.equals("GAUCHE"))
+            commande = "0";
+        if (commande.equals("HAUT"))
+            commande = "2";
+        if (commande.equals("BAS"))
+            commande = "3";
+        if (commande.equals("CENTRE"))
+            commande = "4";
+
         if (state && listeUdnEleves.containsKey(u)) {
             if (!listeUdnEleves.get(u)) {
                 getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(commande));
@@ -86,6 +85,19 @@ public class VoteService {
             }
         }
 
+        if (!listeUdnEleves.containsKey(u) && !state) {
+            listeUdnEleves.put(u, false);
+            System.out.println("Nouvel UDN: " +u);
+            getPropertyChangeSupport().firePropertyChange("inscription", null, u);
+
+        }
+
+    }
+
+    public void reinit() {
+        for (String s : listeUdnEleves.keySet()) {
+            listeUdnEleves.replace(s, true, false);
+        }
     }
 
 }

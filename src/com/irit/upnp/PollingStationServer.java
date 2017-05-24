@@ -2,6 +2,7 @@ package com.irit.upnp;
 
 import com.irit.reponses.GenerateurXML;
 import com.irit.reponses.StockReponses;
+import com.irit.typeVote.Vote;
 import org.fourthline.cling.UpnpService;
 import org.fourthline.cling.UpnpServiceImpl;
 import org.fourthline.cling.binding.LocalServiceBindingException;
@@ -40,6 +41,8 @@ public class PollingStationServer implements Runnable {
     private State state;
 
     private String question;
+
+    private Vote typeVote;
 
     private enum State {
         INIT, SOUMISE;
@@ -113,6 +116,8 @@ public class PollingStationServer implements Runnable {
                                             state = State.SOUMISE;
                                             questionService.getManager().getImplementation()
                                                     .notifier(question);
+                                            questionService.getManager().getImplementation()
+                                                    .notifier("");
                                             break;
                                         case SOUMISE:
                                             state = State.INIT;
@@ -128,6 +133,11 @@ public class PollingStationServer implements Runnable {
                                                 Transformer transformer = transformerFactory.newTransformer();
                                                 transformer.transform(source, result);
                                                 rapportService.getManager().getImplementation().transmettreRapport(writer.toString());
+                                                rapportService.getManager().getImplementation().transmettreRapport("");
+
+                                                voteService.getManager().getImplementation()
+                                                        .reinit();
+
 
                                             } catch (ParserConfigurationException e) {
                                                 e.printStackTrace();

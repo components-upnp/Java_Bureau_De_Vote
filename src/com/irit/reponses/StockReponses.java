@@ -22,7 +22,6 @@ public class StockReponses {
     }
 
     public void addReponse(int num) {
-        num--;
         nbVotes++;
         int nbCourant = reponses.get(num);
         nbCourant++;
