@@ -1,4 +1,4 @@
-package com.irit;
+package test.com.irit;
 
 
 import org.fourthline.cling.UpnpService;

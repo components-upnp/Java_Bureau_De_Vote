@@ -1,6 +1,5 @@
 package com.irit.upnp;
 
-import com.irit.display.Fenetre;
 import com.irit.reponses.GenerateurXML;
 import com.irit.reponses.StockReponses;
 import org.fourthline.cling.UpnpService;

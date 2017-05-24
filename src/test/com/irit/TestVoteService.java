@@ -1,4 +1,4 @@
-package com.irit;
+package test.com.irit;
 
 import com.irit.upnp.PollingStationServer;
 import junit.framework.TestCase;

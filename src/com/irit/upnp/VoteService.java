@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -38,7 +39,7 @@ public class VoteService {
     @UpnpStateVariable(defaultValue = "")
     private String udn = "";
 
-    private ArrayList<String> listeUdnEleves = new ArrayList<String>();
+    private HashMap<String, Boolean> listeUdnEleves = new HashMap<>();
 
     @UpnpAction
     public void setState() {
@@ -56,8 +57,8 @@ public class VoteService {
     @UpnpAction(name = "Inscription")
     public void inscritpion(@UpnpInputArgument(name = "Udn") String udn) {
         udn = "uuid:"+udn;
-        if (!listeUdnEleves.contains(udn) && !state) {
-            listeUdnEleves.add(udn);
+        if (!listeUdnEleves.containsKey(udn) && !state) {
+            listeUdnEleves.put(udn, false);
             System.out.println("Nouvel UDN: " +udn);
             getPropertyChangeSupport().firePropertyChange("inscription", null, udn);
 
@@ -77,9 +78,12 @@ public class VoteService {
         System.out.println(u);
         System.out.println(commande);
 
-        if (state && listeUdnEleves.contains(u)) {
-            getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(commande));
-
+        if (state && listeUdnEleves.containsKey(u)) {
+            if (!listeUdnEleves.get(u)) {
+                getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(commande));
+                listeUdnEleves.remove(u);
+                listeUdnEleves.put(u,true);
+            }
         }
 
     }

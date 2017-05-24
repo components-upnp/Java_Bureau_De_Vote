@@ -1,4 +1,4 @@
-package com.irit;
+package test.com.irit;
 
 import com.irit.reponses.LecteurXml;
 import com.irit.reponses.StockReponses;
