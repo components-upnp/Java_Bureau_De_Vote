@@ -12,7 +12,7 @@ public class StockReponses {
     private int nbVotes;
 
     public StockReponses(int nb) {
-        reponses = new HashMap<Integer, Integer>();
+        reponses = new HashMap<>();
         nbQuestions = nb;
 
         nbVotes = 0;
@@ -34,7 +34,6 @@ public class StockReponses {
     }
 
     public int getVoteReponse(int num) {
-        num--;
         return reponses.get(num);
     }
 

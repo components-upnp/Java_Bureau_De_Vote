@@ -82,7 +82,7 @@ public class PollingStationServer implements Runnable {
                                 case SOUMISE:
                                     if (stEvt == "commande") {
                                         System.out.println("Commande d'un élève reçue!!!");
-                                        stockReponses.addReponse(((Integer)evt.getNewValue())-1);
+                                        stockReponses.addReponse(((Integer)evt.getNewValue()));
                                     }
                                     break;
                             }
