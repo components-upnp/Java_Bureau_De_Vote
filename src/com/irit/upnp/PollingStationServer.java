@@ -133,11 +133,22 @@ public class PollingStationServer implements Runnable {
                                                 Transformer transformer = transformerFactory.newTransformer();
                                                 transformer.transform(source, result);
                                                 rapportService.getManager().getImplementation().transmettreRapport(writer.toString());
-                                                rapportService.getManager().getImplementation().transmettreRapport("");
+
+                                                stockReponses = new StockReponses(0);
+                                                res = new GenerateurXML().getDocXml(stockReponses.getReponses(),
+                                                        stockReponses.getNbQuestions());
+                                                source = new DOMSource(res);
+                                                 writer = new StringWriter();
+                                                 result = new StreamResult(writer);
+
+                                                 transformerFactory = TransformerFactory.newInstance();
+                                                 transformer = transformerFactory.newTransformer();
+                                                transformer.transform(source, result);
+                                                rapportService.getManager().getImplementation().transmettreRapport(writer.toString());
 
                                                 voteService.getManager().getImplementation()
                                                         .reinit();
-
+                                                voteService.getManager().getImplementation().setState();
 
                                             } catch (ParserConfigurationException e) {
                                                 e.printStackTrace();

@@ -76,7 +76,7 @@ public class VoteService {
         if (commande.equals("CENTRE"))
             commande = "4";
 
-        if (state && listeUdnEleves.containsKey(u)) {
+        if (state && listeUdnEleves.containsKey(u) && !(commande.equals("AUCUN"))) {
             if (!listeUdnEleves.get(u)) {
                 getPropertyChangeSupport().firePropertyChange("commande", null, Integer.valueOf(commande));
                 listeUdnEleves.remove(u);

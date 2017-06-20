@@ -30,8 +30,6 @@ public class MasterCommandService {
     }
 
 
-
-    @UpnpStateVariable
     private String clef = "1234";
 
     @UpnpStateVariable(sendEvents = false)
@@ -54,22 +52,27 @@ public class MasterCommandService {
         return null;
     }
 
-    public String getClef() {
-        return clef;
-    }
 
     @UpnpAction(name = "SetQuestion")
     public void setQuestion(@UpnpInputArgument(name = "Question") String q) throws IOException, SAXException, ParserConfigurationException {
-        LecteurXml l = new LecteurXml(q);
-        question = l.getQuestion();
-        System.out.println(l.getClef());
-        if (clef.equals(l.getClef())) {
-            nbQuestion = l.getNbQuestion();
-            Map<String, String> arg = new HashMap<String, String>();
-            arg.put("NbQuestion",nbQuestion);
-            arg.put("Question", question);
-            System.out.println("Question recue : " + question);
-            propertyChangeSupport.firePropertyChange("question", "", arg);
+        question = q;
+
+        if (!q.equals("")){
+            LecteurXml l = new LecteurXml(q);
+
+            System.out.println(l.getClef());
+            if (clef.equals(l.getClef())) {
+                nbQuestion = l.getNbQuestion();
+                Map<String, String> arg = new HashMap<String, String>();
+                arg.put("NbQuestion", nbQuestion);
+                arg.put("Question", l.getQuestion());
+                System.out.println("Question recue : " + l.getQuestion());
+                propertyChangeSupport.firePropertyChange("question", "", arg);
+            }
+        }
+        else {
+            nbQuestion = "0";
+
         }
     }
 
